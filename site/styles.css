@@ -149,49 +149,46 @@ p { max-width: 36em; text-wrap: pretty; }
 .js .specialty-list { display: none; }
 .specialty-note { margin-top: 2.5rem; }
 
-/* ---------- companies: rows hang from one axis ---------- */
+/* ---------- companies: names and descriptions hang from one axis ---------- */
 .companies { background: var(--bg); padding-block: var(--section); }
-.companies-head { margin-left: 35%; min-height: 42svh; display: flex; flex-direction: column; justify-content: center; gap: 1.75rem; }
-.rows { margin-top: clamp(3rem, 6vw, 5rem); display: grid; gap: clamp(3rem, 6vw, 5.5rem); }
-.row { display: grid; grid-template-columns: 35% minmax(0, 1fr) auto; column-gap: var(--gutter); align-items: start; }
-.row-text { grid-column: 2; }
-.row-text p { margin-top: 0.75rem; max-width: 22em; }
-.row-photo { grid-column: 3; justify-self: end; }
-.row-photo img { object-fit: cover; }
-.row-photo--a img { width: 30vw; aspect-ratio: 4 / 5; object-position: 50% 55%; }
-.row-photo--b img { width: 38vw; aspect-ratio: 3 / 2; object-position: 50% 40%; }
-.row-photo--c img { width: 22vw; aspect-ratio: 1 / 1; object-position: 30% 75%; }
-.row-photo--d img { width: 28vw; aspect-ratio: 4 / 5; object-position: 40% 55%; }
-.row-photo--e img { width: 34vw; aspect-ratio: 3 / 2; object-position: 50% 45%; }
+.companies-head { margin-left: 35%; display: grid; gap: 1.75rem; }
+.rows { margin: clamp(4rem, 8vw, 7rem) 0 0 35%; display: grid; gap: clamp(2rem, 3.5vw, 3rem); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: var(--gutter); align-items: baseline; }
 .companies-cta { margin: clamp(4rem, 8vw, 7.5rem) 0 0 35%; }
 
 /* ---------- policy: the commitments as one sentence, on the dark field ---------- */
 .policy { background: var(--field-1); color: var(--field-1-ink); padding-block: calc(var(--section) * 0.75); }
 .policy-sentence { max-width: 40em; font-size: var(--step-lead); line-height: 1.7; font-feature-settings: "palt"; }
 .policy-open { font-weight: 500; }
-.js .policy-sentence { color: #7a7a7a; }
+.js .policy-sentence { color: #808080; }
 .js .policy-open { color: var(--field-1-ink); }
 .policy-item { transition: color 400ms ease; }
 .js .policy-item.is-lit { color: var(--field-1-ink); }
 .policy-note { margin-top: 2.5rem; color: var(--field-1-muted); }
 .policy-note a { margin-left: 0.5em; color: var(--field-1-ink); }
 
-/* ---------- news: statement, table pushed right ---------- */
-.news { background: var(--surface); padding-block: var(--section); row-gap: 6rem; }
+/* ---------- news: the list hangs from the companies axis; a title opens its text ---------- */
+.news { background: var(--surface); padding-block: var(--section); row-gap: clamp(3rem, 6vw, 5rem); }
 .news-title { grid-column: 1 / -1; }
 .news-title .indent { padding-left: 3vw; }
-.news-note { grid-column: 1 / span 5; align-self: end; }
-.news-table { grid-column: 7 / -1; border-collapse: collapse; width: 100%; }
-.news-table td { padding: 0 1rem 1.6rem 0; vertical-align: top; }
-.news-table td:first-child { width: 8.5em; color: var(--muted); }
-.news-table td:nth-child(2) { width: 6.5em; color: var(--muted); }
-.news-table td:last-child { padding-right: 0; }
+.news-list { grid-column: 1 / -1; margin-left: 35%; display: grid; gap: 1.5rem; }
+.news-list li { display: grid; grid-template-columns: 8.5em 6.5em minmax(0, 1fr); column-gap: 1rem; align-items: baseline; }
+.news-list time, .news-kind { color: var(--muted); }
+.news-item summary { cursor: pointer; list-style: none; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; transition: text-decoration-thickness var(--t-hover) ease, text-underline-offset var(--t-hover) ease; }
+.news-item summary::-webkit-details-marker { display: none; }
+.news-item p { margin-top: 0.75rem; }
+@media (hover: hover) and (pointer: fine) { .news-item summary:hover { text-decoration-thickness: 2px; text-underline-offset: 0.2em; } }
 
 /* ---------- footer: the address is the headline ---------- */
 .footer { display: grid; gap: clamp(2.5rem, 5vw, 4rem); padding: clamp(5rem, 9vw, 8rem) var(--margin) 2rem; background: var(--field-1); color: var(--field-1-ink); }
-.footer-mail { justify-self: start; font-family: var(--font-display); font-weight: 100; font-size: var(--step-display); line-height: 1; letter-spacing: -0.02em; text-decoration: none; white-space: nowrap; }
-.footer-mail .at { display: block; }
-@media (hover: hover) and (pointer: fine) { .footer-mail:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; } }
+.footer-mail { justify-self: start; display: grid; gap: clamp(1rem, 2vw, 1.75rem); text-decoration: none; }
+.footer-mail-lead { font-size: var(--step-lead); line-height: 1.6; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; transition: text-decoration-thickness var(--t-hover) ease, text-underline-offset var(--t-hover) ease; }
+.footer-mail-address { font-family: var(--font-display); font-weight: 100; font-size: var(--step-display); line-height: 1; letter-spacing: -0.02em; white-space: nowrap; }
+.footer-mail-address .at { display: block; }
+@media (hover: hover) and (pointer: fine) {
+  .footer-mail:hover .footer-mail-lead { text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  .footer-mail:hover .footer-mail-address { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; }
+}
 .footer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem 2rem; padding-right: calc(3rem + var(--gutter)); font-size: var(--step-small); line-height: 1.7; }
 .footer-meta nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
 .footer-meta .pending { color: var(--field-1-muted); }
@@ -225,10 +222,12 @@ p { max-width: 36em; text-wrap: pretty; }
   .js .hero-lead { animation-delay: 360ms; transform: translateY(calc(-100% + 24px)); animation-name: rise-lead; }
   .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 450ms var(--ease-out), transform 650ms var(--ease-out); transition-delay: calc(var(--d, 0) * 80ms); }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
+  .news-item[open] p { animation: unfold 450ms var(--ease-out) both; }
 }
 @keyframes slot-drift { from { transform: scale(1.14); } to { transform: scale(1); } }
 @keyframes rise { to { opacity: 1; transform: none; } }
 @keyframes rise-lead { to { opacity: 1; transform: translateY(-100%); } }
+@keyframes unfold { from { opacity: 0; transform: translateY(-0.5rem); } }
 
 /* ---------- tablet and phone ---------- */
 @media (max-width: 60em) {
@@ -239,13 +238,7 @@ p { max-width: 36em; text-wrap: pretty; }
   .belief-step--a figure { width: 64%; }
   .belief-step--b figure { width: 78%; margin-left: auto; }
   .belief-step--c figure { width: 52%; margin-left: 0; }
-  .companies-head { margin-left: 0; min-height: 36svh; }
-  .row { grid-template-columns: minmax(0, 1fr); row-gap: 1.25rem; }
-  .row-text, .row-photo { grid-column: 1; }
-  .row-photo { justify-self: start; }
-  .row:nth-child(even) .row-photo { justify-self: end; }
-  .companies-cta { margin-left: 0; }
-  .news-note, .news-table { grid-column: 1 / -1; }
+  .companies-head, .rows, .companies-cta, .news-list { margin-left: 0; }
   .page-body { margin-left: 0; }
 }
 @media (max-width: 48em) {
@@ -253,13 +246,7 @@ p { max-width: 36em; text-wrap: pretty; }
   .specialty-picker { grid-column: 1 / -1; padding-top: 0; margin-bottom: 2rem; }
   .chips { flex-direction: row; flex-wrap: wrap; }
   .specialty-body { grid-column: 1 / -1; }
-  .row-photo--a img { width: 100%; }
-  .row-photo--b img { width: 70vw; }
-  .row-photo--c img { width: 55vw; }
-  .row-photo--d img { width: 70vw; }
-  .row-photo--e img { width: 55vw; }
   .footer-meta { flex-direction: column; }
-  .news-table td:nth-child(2) { display: none; }
 }
 /* Phone: a narrower frame keeps "Who [frame] Advocates" on one line in landscape. */
 @media (max-width: 40em) {
@@ -267,6 +254,9 @@ p { max-width: 36em; text-wrap: pretty; }
   .slot { width: 1.4em; }
   .policy-sentence, .specialty-statement { font-size: var(--step-body); line-height: 1.85; }
   .dropcap { width: 5.55em; height: 5.55em; }
+  .row { grid-template-columns: minmax(0, 1fr); row-gap: 0.25rem; }
+  .news-list li { grid-template-columns: auto minmax(0, 1fr); }
+  .news-item { grid-column: 1 / -1; }
 }
 /* Portrait: one word per line, sized so "Advocates" fills the width and the title clears the header.
    The frame ends flush with "Advocates": Who 2.16em + space 0.22em + frame 2.54em = Advocates 4.92em. */
