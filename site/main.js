@@ -19,19 +19,33 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   }, 2500));
 })();
 
-// Colour by chapter: the fixed header takes the ground and ink of the chapter under it.
+// Colour by chapter: the fixed header takes the ground and ink of the chapter under it,
+// and the back-to-top button inverts against the chapter under the bottom-right corner.
 (() => {
   const chapters = document.querySelectorAll('[data-ink]');
   if (!chapters.length || !('IntersectionObserver' in window)) return;
   const root = document.documentElement.style;
-  const io = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      root.setProperty('--header-ink', entry.target.dataset.ink);
-      root.setProperty('--header-ground', entry.target.dataset.ground);
-    }
-  }, { rootMargin: '0px 0px -92% 0px', threshold: 0 });
-  chapters.forEach((el) => io.observe(el));
+  const watch = (rootMargin, ink, ground) => {
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        root.setProperty(ink, entry.target.dataset.ink);
+        root.setProperty(ground, entry.target.dataset.ground);
+      }
+    }, { rootMargin, threshold: 0 });
+    chapters.forEach((el) => io.observe(el));
+  };
+  watch('0px 0px -92% 0px', '--header-ink', '--header-ground');
+  watch('-92% 0px 0px 0px', '--corner-ink', '--corner-ground');
+})();
+
+// Back to the top: shown once the page has started to scroll.
+(() => {
+  const button = document.querySelector('.to-top');
+  if (!button) return;
+  const update = () => button.classList.toggle('is-shown', window.scrollY > 8);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 })();
 
 // The "who" in the headline: the frame inside the sentence shows one person at work after another.
@@ -47,7 +61,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   }, 2600);
 })();
 
-// The live thing: choose what fills the blank in "〇〇 × インフルエンス".
+// The live thing: choose the specialty shown in "専門性 × インフルエンス".
 (() => {
   const picker = document.querySelector('[data-picker]');
   if (!picker) return;
