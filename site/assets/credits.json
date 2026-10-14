@@ -44,50 +44,6 @@
     "saved": "2026-10-14T08:02:19.485Z"
   },
   {
-    "file": "site/assets/japanese-marker-pens.jpg",
-    "media": "image",
-    "ref": "openverse:43b49933-2f88-444e-ae64-3830654a1d0e",
-    "title": "Japanese marker pens",
-    "creator": "qubodup",
-    "creatorUrl": "https://www.flickr.com/photos/21051491@N02",
-    "date": null,
-    "license": "CC BY 2.0",
-    "licenseCode": "by",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-    "creditRequired": true,
-    "page": "https://www.flickr.com/photos/21051491@N02/3211575030",
-    "via": "Flickr",
-    "image": "https://live.staticflickr.com/3322/3211575030_8f56810e92_b.jpg",
-    "width": 1024,
-    "height": 768,
-    "bytes": 141370,
-    "credit": "\"Japanese marker pens\" by qubodup, CC BY 2.0, via Flickr",
-    "notes": [],
-    "saved": "2026-10-14T08:02:19.69Z"
-  },
-  {
-    "file": "site/assets/kitchen-in-showa-era-2024-12-22.jpg",
-    "media": "image",
-    "ref": "commons:160457942",
-    "title": "Kitchen in Showa era 2024-12-22",
-    "creator": "Asanagi",
-    "creatorUrl": null,
-    "date": "2024-12-22",
-    "license": "CC0",
-    "licenseCode": "cc0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
-    "creditRequired": false,
-    "page": "https://commons.wikimedia.org/wiki/File:Kitchen_in_Showa_era_2024-12-22.jpg",
-    "via": "Wikimedia Commons",
-    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Kitchen_in_Showa_era_2024-12-22.jpg/1920px-Kitchen_in_Showa_era_2024-12-22.jpg",
-    "width": 1920,
-    "height": 2560,
-    "bytes": 1450656,
-    "credit": "\"Kitchen in Showa era 2024-12-22\" by Asanagi, CC0, via Wikimedia Commons",
-    "notes": [],
-    "saved": "2026-10-14T08:02:20.45Z"
-  },
-  {
     "file": "site/assets/kodansha-typists-pg-232.jpg",
     "media": "image",
     "ref": "commons:147649773",
@@ -158,30 +114,6 @@
     "saved": "2026-10-14T11:06:14.0233677Z"
   },
   {
-    "file": "site/assets/smartphone-calculator-on-reports.jpg",
-    "media": "image",
-    "ref": "unsplash:4rTXOMv28VA",
-    "title": "smartphone calculator app on financial report papers",
-    "creator": "Jakub Żerdzicki",
-    "creatorUrl": "https://unsplash.com/@jakubzerdzicki",
-    "date": null,
-    "license": "Unsplash License",
-    "licenseCode": "unsplash",
-    "licenseUrl": "https://unsplash.com/license",
-    "creditRequired": false,
-    "page": "https://unsplash.com/photos/smartphone-calculator-app-on-financial-report-papers-4rTXOMv28VA",
-    "via": "Unsplash",
-    "image": "https://images.unsplash.com/photo-1709534486708-fb8f94150d0a?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
-    "width": 2001,
-    "height": 3000,
-    "bytes": 417174,
-    "credit": "\"smartphone calculator app on financial report papers\" by Jakub Żerdzicki, Unsplash License, via Unsplash",
-    "notes": [
-      "Converted to black and white and resized."
-    ],
-    "saved": "2026-10-14T11:06:14.3574378Z"
-  },
-  {
     "file": "site/assets/child-writing-with-pencil.jpg",
     "media": "image",
     "ref": "unsplash:9N68zG9o9IY",
@@ -204,5 +136,29 @@
       "Converted to black and white and resized."
     ],
     "saved": "2026-10-14T11:06:15.3858498Z"
+  },
+  {
+    "file": "site/assets/meal-prep-containers.jpg",
+    "media": "image",
+    "ref": "unsplash:lMcRyBx4G50",
+    "title": "Three glass containers filled with rice, corn, olives, tomatoes, cucumbers, and lentils",
+    "creator": "Ella Olsson",
+    "creatorUrl": "https://unsplash.com/@ellaolsson",
+    "date": null,
+    "license": "Unsplash License",
+    "licenseCode": "unsplash",
+    "licenseUrl": "https://unsplash.com/license",
+    "creditRequired": false,
+    "page": "https://unsplash.com/photos/meal-prep-containers-with-healthy-food-lMcRyBx4G50",
+    "via": "Unsplash",
+    "image": "https://images.unsplash.com/photo-1543352632-5a4b24e4d2a6?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
+    "width": 4827,
+    "height": 3862,
+    "bytes": 842135,
+    "credit": "\"Three glass containers filled with rice, corn, olives, tomatoes, cucumbers, and lentils\" by Ella Olsson, Unsplash License, via Unsplash",
+    "notes": [
+      "Converted to black and white and resized."
+    ],
+    "saved": "2026-10-14T11:52:10.4367740Z"
   }
 ]

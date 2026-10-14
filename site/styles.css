@@ -42,7 +42,7 @@
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; line-break: strict; }
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: var(--step-body); line-height: 1.85; letter-spacing: 0.02em; font-kerning: normal; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: var(--step-body); line-height: 1.85; letter-spacing: 0.02em; font-kerning: normal; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; word-break: keep-all; overflow-wrap: break-word; }
 h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd { margin: 0; }
 ul[class], ol[class] { padding: 0; list-style: none; }
 img, video, svg { display: block; max-width: 100%; }
@@ -58,7 +58,8 @@ a { color: inherit; }
 .to-top:focus-visible { outline-color: color-mix(in srgb, var(--accent) 70%, var(--corner-ink, var(--ink))); }
 
 /* ---------- type ---------- */
-h1, h2, h3 { font-weight: inherit; text-wrap: balance; word-break: auto-phrase; font-feature-settings: "palt"; }
+/* Japanese lines break only at the phrase boundaries marked with <wbr> in the HTML (word-break: keep-all on body). */
+h1, h2, h3 { font-weight: inherit; text-wrap: balance; font-feature-settings: "palt"; }
 .head { font-size: var(--step-head); line-height: 1.25; font-weight: 300; letter-spacing: 0.01em; }
 .lead { font-size: var(--step-lead); line-height: 1.6; font-weight: 400; }
 .small { font-size: var(--step-small); line-height: 1.6; }
@@ -113,9 +114,12 @@ p { max-width: 36em; text-wrap: pretty; }
 .hero-copy--ink { color: var(--field-1-ink); clip-path: inset(var(--seam-offset) 0 0 0); }
 .slot { position: relative; display: inline-block; width: 2.4em; height: 0.7em; margin-inline: 0.04em 0.1em; overflow: hidden; vertical-align: baseline; background: var(--surface); }
 .slot--blank { background: none; }
-.slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 900ms var(--ease-in-out); }
-.slot img.is-on { opacity: 1; }
-.hero-lead { position: absolute; left: var(--margin); right: var(--margin); top: calc(100svh - 3.5rem); transform: translateY(-100%); color: var(--field-1-ink); max-width: 30em; word-break: keep-all; }
+/* Crossfade: the next photo fades in on top while the previous one stays fully visible underneath, so the frame
+   never dims. The fade time is shared with main.js (FADE). */
+.slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; will-change: opacity, transform; }
+.slot img.is-on { z-index: 2; opacity: 1; transition: opacity 1000ms var(--ease-in-out); }
+.slot img.is-leaving { z-index: 1; opacity: 1; }
+.hero-lead { position: absolute; left: var(--margin); right: var(--margin); top: calc(100svh - 3.5rem); transform: translateY(-100%); color: var(--field-1-ink); max-width: 30em; }
 
 /* ---------- belief: the sentence holds while the reasons pass ---------- */
 .belief { background: var(--bg); padding-block: var(--section) calc(var(--section) / 2); }
@@ -146,7 +150,6 @@ p { max-width: 36em; text-wrap: pretty; }
 .dropcap { float: left; width: 4.65em; height: 4.65em; margin: 0.18em 0.6em 0 0; object-fit: cover; transition: opacity 260ms ease; }
 .dropcap.is-swapping { opacity: 0; }
 .specialty-who { font-weight: 500; }
-.specialty-example { margin-top: 1.6em; font-size: var(--step-lead); line-height: 1.55; color: var(--muted); max-width: 28em; min-height: 3.1em; }
 .specialty-list { margin-top: 2rem; display: grid; gap: 0.75rem; }
 .specialty-list dt { font-weight: 500; }
 .specialty-list dd { color: var(--muted); }
@@ -162,13 +165,13 @@ p { max-width: 36em; text-wrap: pretty; }
 
 /* ---------- policy: the commitments as one sentence, on the dark field ---------- */
 .policy { background: var(--field-1); color: var(--field-1-ink); padding-block: calc(var(--section) * 0.75); }
-.policy-sentence { max-width: 40em; font-size: var(--step-lead); line-height: 1.7; font-feature-settings: "palt"; word-break: keep-all; }
+.policy-sentence { max-width: 40em; font-size: var(--step-lead); line-height: 1.7; font-feature-settings: "palt"; }
 .policy-open { font-weight: 500; }
 .js .policy-sentence { color: #808080; }
 .js .policy-open { color: var(--field-1-ink); }
 .policy-item { transition: color 400ms ease; }
 .js .policy-item.is-lit { color: var(--field-1-ink); }
-.policy-note { margin-top: 2.5rem; max-width: none; color: var(--field-1-muted); word-break: keep-all; }
+.policy-note { margin-top: 2.5rem; max-width: none; color: var(--field-1-muted); }
 .policy-note a { color: var(--field-1-ink); }
 
 /* ---------- news: the list hangs from the companies axis; a title opens its text ---------- */
@@ -221,7 +224,10 @@ p { max-width: 36em; text-wrap: pretty; }
 
 /* ---------- motion (content stays visible without JavaScript) ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .slot img.is-on { animation: slot-drift 5200ms linear both; }
+  /* One slow zoom per photo. It keeps running while the photo is "leaving", and is longer than the time a photo
+     can be seen (its fade-in, the hold, the next photo's fade-in: HOLD + 2 × FADE in main.js), so the zoom never
+     stops or snaps back on screen. */
+  .slot img.is-on, .slot img.is-leaving { animation: slot-drift 5600ms linear both; }
   .js .hero-title .line, .js .hero-lead { opacity: 0; transform: translateY(24px); animation: rise 1000ms var(--ease-out) forwards; }
   .js .hero-title .line:nth-child(2) { animation-delay: 120ms; }
   .js .hero-lead { animation-delay: 360ms; transform: translateY(calc(-100% + 24px)); animation-name: rise-lead; }
@@ -229,7 +235,7 @@ p { max-width: 36em; text-wrap: pretty; }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
   .news-item[open] p { animation: unfold 450ms var(--ease-out) both; }
 }
-@keyframes slot-drift { from { transform: scale(1.14); } to { transform: scale(1); } }
+@keyframes slot-drift { from { transform: scale(1.1); } to { transform: scale(1); } }
 @keyframes rise { to { opacity: 1; transform: none; } }
 @keyframes rise-lead { to { opacity: 1; transform: translateY(-100%); } }
 @keyframes unfold { from { opacity: 0; transform: translateY(-0.5rem); } }

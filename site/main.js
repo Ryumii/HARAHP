@@ -48,17 +48,24 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   update();
 })();
 
-// The "who" in the headline: the frame inside the sentence shows one person at work after another.
+// The "who" in the headline: the frame inside the sentence shows one specialty after another.
+// The next photo fades in on top of the current one, which stays visible underneath until it is covered.
 (() => {
   const frames = [...document.querySelectorAll('.slot img')];
   if (frames.length < 2 || reduceMotion) return;
-  let current = frames.findIndex((img) => img.classList.contains('is-on'));
-  setInterval(() => {
+  const HOLD = 3000; // ms a photo stays fully visible
+  const FADE = 1000; // ms; matches the .slot img.is-on opacity transition in styles.css
+  let current = Math.max(0, frames.findIndex((img) => img.classList.contains('is-on')));
+  const advance = () => {
     if (document.hidden) return;
-    frames[current].classList.remove('is-on');
+    const leaving = frames[current];
     current = (current + 1) % frames.length;
+    leaving.classList.replace('is-on', 'is-leaving');
     frames[current].classList.add('is-on');
-  }, 2600);
+    setTimeout(() => leaving.classList.remove('is-leaving'), FADE + 100);
+  };
+  // Decode every photo before the first change, so none is decoded on screen in the middle of a fade.
+  Promise.all(frames.map((img) => img.decode().catch(() => {}))).then(() => setInterval(advance, HOLD + FADE));
 })();
 
 // The live thing: choose the specialty shown in "専門性 × インフルエンス".
@@ -73,7 +80,9 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const choose = (chip) => {
     chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
     who.textContent = chip.dataset.who;
-    example.textContent = chip.dataset.example;
+    // The example text lives once, in the no-script list; copying its nodes keeps its <wbr> line-break hints.
+    const source = document.getElementById(chip.dataset.exampleId);
+    example.replaceChildren(...[...source.childNodes].map((node) => node.cloneNode(true)));
     const swap = () => {
       photo.src = chip.dataset.src;
       photo.alt = chip.dataset.alt;
