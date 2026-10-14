@@ -121,10 +121,10 @@ p { max-width: 36em; text-wrap: pretty; }
 .belief-step figure { margin-top: 1.75rem; }
 .belief-step img { width: 100%; object-fit: cover; }
 .belief-step--a figure { width: 62%; }
-.belief-step--a img { aspect-ratio: 4 / 5; object-position: 62% 50%; }
+.belief-step--a img { aspect-ratio: 4 / 5; object-position: 50% 50%; }
 .belief-step--b img { aspect-ratio: 16 / 10; object-position: 50% 50%; }
 .belief-step--c figure { width: 52%; margin-left: auto; }
-.belief-step--c img { aspect-ratio: 1 / 1; object-position: 40% 55%; }
+.belief-step--c img { aspect-ratio: 1 / 1; object-position: 88% 50%; }
 
 /* ---------- specialty: the blank, filled ---------- */
 .specialty { background: var(--surface); padding-block: calc(var(--section) * 0.7); }
