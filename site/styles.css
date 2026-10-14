@@ -83,8 +83,8 @@ p { max-width: 36em; text-wrap: pretty; }
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: 10; display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); min-height: 4.5rem; padding: 0.75rem var(--margin); background: var(--header-ground, var(--bg)); color: var(--header-ink, var(--ink)); transition: background-color var(--t-ui) ease, color var(--t-ui) ease; }
 .wordmark { margin-right: auto; font-family: var(--font-display); font-weight: 300; font-size: var(--step-lead); line-height: 1; letter-spacing: -0.01em; text-decoration: none; }
 .site-nav { display: flex; gap: clamp(1rem, 2vw, 2rem); }
-.site-nav a, .menu-panel a { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: 0.4em; transition: text-decoration-color var(--t-hover) ease, text-underline-offset var(--t-hover) var(--ease-out); }
-.site-nav a:hover, .site-nav a:focus-visible { text-decoration-color: currentColor; text-underline-offset: 0.25em; }
+.site-nav a, .menu-panel a, .footer-meta nav a { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: 0.4em; transition: text-decoration-color var(--t-hover) ease, text-underline-offset var(--t-hover) var(--ease-out); }
+.site-nav a:hover, .site-nav a:focus-visible, .footer-meta nav a:hover, .footer-meta nav a:focus-visible { text-decoration-color: currentColor; text-underline-offset: 0.25em; }
 .menu { display: none; position: relative; order: 2; }
 .site-header .button { order: 1; }
 .menu summary { list-style: none; cursor: pointer; min-width: 2.75rem; min-height: 2.75rem; display: flex; align-items: center; justify-content: center; }
@@ -125,7 +125,6 @@ p { max-width: 36em; text-wrap: pretty; }
 .belief-step--b img { aspect-ratio: 16 / 10; object-position: 50% 50%; }
 .belief-step--c figure { width: 52%; margin-left: auto; }
 .belief-step--c img { aspect-ratio: 1 / 1; object-position: 40% 55%; }
-.caption { margin-top: 0.5rem; font-size: var(--step-small); line-height: 1.6; color: var(--muted); }
 
 /* ---------- specialty: the blank, filled ---------- */
 .specialty { background: var(--surface); padding-block: calc(var(--section) * 0.7); }
@@ -158,14 +157,14 @@ p { max-width: 36em; text-wrap: pretty; }
 
 /* ---------- policy: the commitments as one sentence, on the dark field ---------- */
 .policy { background: var(--field-1); color: var(--field-1-ink); padding-block: calc(var(--section) * 0.75); }
-.policy-sentence { max-width: 40em; font-size: var(--step-lead); line-height: 1.7; font-feature-settings: "palt"; }
+.policy-sentence { max-width: 40em; font-size: var(--step-lead); line-height: 1.7; font-feature-settings: "palt"; word-break: keep-all; }
 .policy-open { font-weight: 500; }
 .js .policy-sentence { color: #808080; }
 .js .policy-open { color: var(--field-1-ink); }
 .policy-item { transition: color 400ms ease; }
 .js .policy-item.is-lit { color: var(--field-1-ink); }
-.policy-note { margin-top: 2.5rem; color: var(--field-1-muted); }
-.policy-note a { margin-left: 0.5em; color: var(--field-1-ink); }
+.policy-note { margin-top: 2.5rem; max-width: none; color: var(--field-1-muted); word-break: keep-all; }
+.policy-note a { color: var(--field-1-ink); }
 
 /* ---------- news: the list hangs from the companies axis; a title opens its text ---------- */
 .news { background: var(--surface); padding-block: var(--section); row-gap: clamp(3rem, 6vw, 5rem); }
@@ -182,12 +181,13 @@ p { max-width: 36em; text-wrap: pretty; }
 /* ---------- footer: the address is the headline ---------- */
 .footer { display: grid; gap: clamp(2.5rem, 5vw, 4rem); padding: clamp(5rem, 9vw, 8rem) var(--margin) 2rem; background: var(--field-1); color: var(--field-1-ink); }
 .footer-mail { justify-self: start; display: grid; gap: clamp(1rem, 2vw, 1.75rem); text-decoration: none; }
-.footer-mail-lead { font-size: var(--step-lead); line-height: 1.6; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; transition: text-decoration-thickness var(--t-hover) ease, text-underline-offset var(--t-hover) ease; }
+.footer-mail-lead { font-size: var(--step-lead); line-height: 1.6; }
 .footer-mail-address { font-family: var(--font-display); font-weight: 100; font-size: var(--step-display); line-height: 1; letter-spacing: -0.02em; white-space: nowrap; }
 .footer-mail-address .at { display: block; }
 @media (hover: hover) and (pointer: fine) {
-  .footer-mail:hover .footer-mail-lead { text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
-  .footer-mail:hover .footer-mail-address { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; }
+  .footer-mail:hover > span { text-decoration: underline; text-decoration-thickness: 2px; }
+  .footer-mail:hover .footer-mail-lead { text-underline-offset: 0.3em; }
+  .footer-mail:hover .footer-mail-address { text-underline-offset: 0.12em; }
 }
 .footer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem 2rem; padding-right: calc(3rem + var(--gutter)); font-size: var(--step-small); line-height: 1.7; }
 .footer-meta nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
