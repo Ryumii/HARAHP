@@ -4,7 +4,9 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 
 ## 現状と前提
 
-- ドメイン advocates.jp は取得済みです。技術スタックと公開先は未定です。決まったらこの節に追記します。
+- ドメイン advocates.jp は取得済みです。公開先は未定です。決まったらこの節に追記します。
+- 試作は `site/` にあり、HTML、CSS、JavaScript だけで作っています（ビルドと依存なし）。本番の技術スタックは、公開先とお問い合わせフォームの仕組みを決めるときに見直します。
+- デザインの方向性は `docs/design-direction.md` と `.taste-skill/direction.json`（taste-skill の方向性シート。`node .agents/skills/design-taste-frontend/scripts/draw.mjs --show` で表示）に従います。
 - お問い合わせフォームの送信先は Contact@advocates.jp です。
 - GitHub はアカウント Ryumii（miyakeryuta1211@gmail.com）だけを使います。リポジトリは https://github.com/Ryumii/advocates.jp （非公開）です。このリポジトリの git 設定で、コミットの作成者をこのアドレスに、github.com の認証を gh（Ryumii）に固定しています。ほかのアカウントでコミット、プッシュ、リポジトリの作成をしません。
 - ユーザー向けの出力（返答、レビュー、レポート）とサイトの本文は日本語で書きます。スキルが英語での出力を指定していても同じです。コード、コマンド、パス、エラーメッセージは原文のまま書きます。
@@ -18,8 +20,11 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 | `.github/copilot-instructions.md` | Copilot 用の入口。ルールの本体はこのファイル |
 | `.agents/skills/` | エージェントスキル。`npx skills` で管理し、直接編集しない |
 | `skills-lock.json` | スキルの取得元とハッシュ。復元と更新に使う |
-| `.taste-skill/` | `design-taste-frontend` の作業ファイル（スクリーンショットなど） |
+| `.taste-skill/direction.json` | taste-skill の方向性シート。検査のスクリーンショット（`.taste-skill/inspect*/`）は git に含めない |
 | `docs/content-plan.md` | サイトに載せる内容の検討資料（他社サイトの調査と、載せる内容の案） |
+| `docs/design-direction.md` | デザインの検討資料（先行事例、方向性、アイデア、検査の結果） |
+| `site/` | サイトの試作。`index.html`、`company.html`、`ad-policy.html` と共通の `styles.css`、`main.js` |
+| `site/assets/` | 写真と出典（`credits.json`）。追加は `assets.mjs --get <ref> --to site/assets` で行い、ページにクレジットを載せる |
 
 ## 常に守るルール
 
