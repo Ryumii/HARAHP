@@ -6,7 +6,7 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 
 - ドメイン advocates.jp は取得済みです。技術スタックと公開先は未定です。決まったらこの節に追記します。
 - お問い合わせフォームの送信先は Contact@advocates.jp です。
-- GitHub はアカウント Ryumii（miyakeryuta1211@gmail.com）だけを使います。このリポジトリの git 設定にも、コミットの作成者としてこのアドレスを指定しています。ほかのアカウントでコミット、プッシュ、リポジトリの作成をしません。
+- GitHub はアカウント Ryumii（miyakeryuta1211@gmail.com）だけを使います。リポジトリは https://github.com/Ryumii/advocates.jp （非公開）です。このリポジトリの git 設定で、コミットの作成者をこのアドレスに、github.com の認証を gh（Ryumii）に固定しています。ほかのアカウントでコミット、プッシュ、リポジトリの作成をしません。
 - ユーザー向けの出力（返答、レビュー、レポート）とサイトの本文は日本語で書きます。スキルが英語での出力を指定していても同じです。コード、コマンド、パス、エラーメッセージは原文のまま書きます。
 - 作業環境は Windows と PowerShell です。パスに空白と日本語を含むため、コマンドではパスを引用符で囲みます。
 - フォルダは OneDrive で同期されます。シンボリックリンクは作りません。npm の依存を入れると `node_modules` も同期の対象になるため、最初に入れるときはユーザーに確認します。
@@ -19,6 +19,7 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 | `.agents/skills/` | エージェントスキル。`npx skills` で管理し、直接編集しない |
 | `skills-lock.json` | スキルの取得元とハッシュ。復元と更新に使う |
 | `.taste-skill/` | `design-taste-frontend` の作業ファイル（スクリーンショットなど） |
+| `docs/content-plan.md` | サイトに載せる内容の検討資料（他社サイトの調査と、載せる内容の案） |
 
 ## 常に守るルール
 
