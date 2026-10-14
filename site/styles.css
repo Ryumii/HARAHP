@@ -10,7 +10,7 @@
   --ink: #111111;
   --muted: #6b6b6b;
   --dim: #8a8a8a;
-  --accent: #d7261e;
+  --accent: #a51c3a;
   --accent-ink: #ffffff;
   --field-1: #111111;
   --field-1-ink: #ffffff;
@@ -52,6 +52,10 @@ a { color: inherit; }
 :target { scroll-margin-top: 6rem; }
 ::selection { background: var(--accent); color: var(--accent-ink); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* The wine is too dark to show focus on the black fields, so the ring leans towards each area's ink there. */
+.policy :focus-visible, .footer :focus-visible { outline-color: color-mix(in srgb, var(--accent) 70%, var(--field-1-ink)); }
+.site-header :focus-visible { outline-color: color-mix(in srgb, var(--accent) 70%, var(--header-ink, var(--ink))); }
+.to-top:focus-visible { outline-color: color-mix(in srgb, var(--accent) 70%, var(--corner-ink, var(--ink))); }
 
 /* ---------- type ---------- */
 h1, h2, h3 { font-weight: inherit; text-wrap: balance; word-break: auto-phrase; font-feature-settings: "palt"; }
