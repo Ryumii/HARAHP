@@ -94,30 +94,6 @@
     "saved": "2026-10-14T14:44:26.1848421Z"
   },
   {
-    "file": "site/assets/homemaker-santoku-knife.jpg",
-    "media": "image",
-    "ref": "unsplash:5zKFbbEryP8",
-    "title": "sliced green and red bell peppers on white chopping board",
-    "creator": "Jenna E.",
-    "creatorUrl": "https://unsplash.com/@jennamfeo",
-    "date": null,
-    "license": "Unsplash License",
-    "licenseCode": "unsplash",
-    "licenseUrl": "https://unsplash.com/license",
-    "creditRequired": false,
-    "page": "https://unsplash.com/photos/sliced-green-and-red-bell-peppers-on-white-chopping-board-5zKFbbEryP8",
-    "via": "Unsplash",
-    "image": "https://images.unsplash.com/photo-1598295309854-cfa5819004d8?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
-    "width": 4898,
-    "height": 3265,
-    "bytes": 383307,
-    "credit": "\"sliced green and red bell peppers on white chopping board\" by Jenna E., Unsplash License, via Unsplash",
-    "notes": [
-      "Converted to black and white and resized."
-    ],
-    "saved": "2026-10-14T14:44:26.8365287Z"
-  },
-  {
     "file": "site/assets/lawyer-balance-scale.jpg",
     "media": "image",
     "ref": "unsplash:j06gLuKK0GM",

@@ -9,8 +9,9 @@
   --surface: #f4f4f4;
   --ink: #111111;
   --muted: #6b6b6b;
-  --dim: #8a8a8a;
   --accent: #a51c3a;
+  /* the accent mixed 62:38 with the --surface grey: as pale as it goes while large text keeps 3:1 there (3.25:1) */
+  --accent-pale: #c36e81;
   --accent-ink: #ffffff;
   --field-1: #111111;
   --field-1-ink: #ffffff;
@@ -135,26 +136,46 @@ p { max-width: 36em; text-wrap: pretty; }
 .belief-step--c figure { width: 52%; margin-left: auto; }
 .belief-step--c img { aspect-ratio: 1 / 1; object-position: 88% 50%; }
 
-/* ---------- specialty: the blank, filled ---------- */
-.specialty { background: var(--surface); padding-block: calc(var(--section) * 0.7); }
-.specialty-picker { grid-column: 1 / span 2; padding-top: 0.4rem; }
-.picker-label { margin-bottom: 0.75rem; }
-.chips { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-.chip { min-height: 2.75rem; padding: 0 1rem; background: var(--bg); color: var(--ink); letter-spacing: 0.04em; transition: background-color var(--t-hover) ease, color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
-.chip:active { transform: scale(0.96); }
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-@media (hover: hover) and (pointer: fine) { .chip[aria-pressed="false"]:hover { background: #e2e2e2; } }
-.specialty-body { grid-column: 3 / -1; }
-.specialty-statement { max-width: none; font-size: var(--step-lead); line-height: 1.55; }
-.specialty-statement::after { content: ""; display: block; clear: both; }
-.dropcap { float: left; width: 4.65em; height: 4.65em; margin: 0.18em 0.6em 0 0; object-fit: cover; transition: opacity 260ms ease; }
-.dropcap.is-swapping { opacity: 0; }
-.specialty-who { font-weight: 500; }
-.specialty-list { margin-top: 2rem; display: grid; gap: 0.75rem; }
-.specialty-list dt { font-weight: 500; }
-.specialty-list dd { color: var(--muted); }
-.js .specialty-list { display: none; }
-.specialty-note { margin-top: 2.5rem; }
+/* ---------- specialty: three specialties, and a blank in the sentence that takes one example after another ---------- */
+.specialty { --mark-w: clamp(9rem, 26vw, 24rem); --mark-gap: clamp(1.25rem, 2.6vw, 2.75rem); background: var(--surface); padding-block: calc(var(--section) * 0.7); }
+.specialty .wrap { container-type: inline-size; }
+/* Without script only the sentences show, each with its own label; the photo and the names need the script. */
+.specialty-mark { display: none; }
+.js .specialty-grid { display: grid; grid-template-columns: var(--mark-w) minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: var(--mark-gap); }
+.js .specialty-mark { display: block; grid-row: 1 / span 2; position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--bg); }
+.specialty-mark img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+/* Crossfade as in the hero: the next photo fades in on top while the previous one stays visible underneath. */
+.specialty-mark img.is-on { z-index: 2; opacity: 1; transition: opacity 400ms var(--ease-in-out); }
+.specialty-mark img.is-leaving { z-index: 1; opacity: 1; }
+/* The three names stay on one line: the size gives way before the line would wrap. */
+.specialty-head { font-size: min(var(--step-head), (100cqi - var(--mark-w) - var(--mark-gap)) / 12.8); font-weight: 300; line-height: 1.2; }
+.specialty-head[hidden] { display: none; }
+.specialty-tabs { display: flex; flex-wrap: wrap; column-gap: 0.55em; }
+.specialty-tab { padding: 0; font-size: inherit; font-weight: inherit; line-height: inherit; color: var(--accent-pale); text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: max(2px, 0.035em); text-underline-offset: 0.2em; transition: color var(--t-hover) ease, text-decoration-color var(--t-hover) ease; }
+.specialty-tab[aria-pressed="true"] { color: var(--accent); text-decoration-color: currentColor; }
+@media (hover: hover) and (pointer: fine) { .specialty-tab:hover { color: var(--accent); } }
+.specialty-times { max-width: none; }
+.specialty-panels { margin-top: clamp(2rem, 4vw, 3.5rem); }
+.specialty-panel { max-width: 26em; font-size: var(--step-lead); line-height: 1.6; }
+.specialty-panel + .specialty-panel { margin-top: 1.25em; }
+.specialty-who { display: block; font-weight: 500; }
+.nobr { white-space: nowrap; }
+/* The blank: a white box as wide as its longest example, so the sentence never reflows when the example changes. */
+.word-slot { display: inline-grid; justify-items: center; margin-inline: 0.15em; padding: 0 0.35em; overflow: hidden; line-height: 1.35; background: var(--bg); }
+.word-slot > span { grid-area: 1 / 1; }
+html:not(.js) .word-slot > span:not(:first-child) { visibility: hidden; }
+/* With script, only one panel shows, stacked in one cell so the section keeps the height of the longest. */
+.js .specialty-who { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.js .specialty-panels { display: grid; align-content: start; }
+.js .specialty-panel { grid-area: 1 / 1; margin: 0; opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 0s linear 200ms; }
+.js .specialty-panel.is-on { opacity: 1; visibility: visible; transition: opacity 260ms ease 200ms; }
+/* Waiting examples rest unseen in place; only the arriving one (up from below) and the leaving one (out the top) move.
+   Shown words take the panel's visibility, so the word of a hidden panel never lies over the sentence on show. */
+.js .word-slot > span { opacity: 0; visibility: hidden; }
+.js .word-slot > span.is-on { opacity: 1; visibility: inherit; animation: word-in 450ms var(--ease-out) both; }
+.js .word-slot > span.is-leaving { visibility: inherit; animation: word-out 450ms var(--ease-out) both; }
+@keyframes word-in { from { opacity: 0; transform: translateY(75%); } }
+@keyframes word-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-75%); } }
 
 /* ---------- companies: names and descriptions hang from one axis ---------- */
 .companies { background: var(--bg); padding-block: var(--section); }
@@ -254,17 +275,19 @@ p { max-width: 36em; text-wrap: pretty; }
 }
 @media (max-width: 48em) {
   .hero { --seam: 46svh; }
-  .specialty-picker { grid-column: 1 / -1; padding-top: 0; margin-bottom: 2rem; }
-  .chips { flex-direction: row; flex-wrap: wrap; }
-  .specialty-body { grid-column: 1 / -1; }
   .footer-meta { flex-direction: column; }
 }
 /* Phone: a narrower frame keeps "Who [frame] Advocates" on one line in landscape. */
 @media (max-width: 40em) {
   :root { --margin: 1rem; --step-display: 10vw; }
   .slot { width: 1.4em; }
-  .policy-sentence, .specialty-statement { font-size: var(--step-body); line-height: 1.85; }
-  .dropcap { width: 5.55em; height: 5.55em; }
+  .policy-sentence, .specialty-panel { font-size: var(--step-body); line-height: 1.85; }
+  /* Phone: the photo becomes a band above the names, and the names stack one per line, as the hero's words do. */
+  .js .specialty-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .js .specialty-mark { grid-row: auto; aspect-ratio: 2 / 1; margin-bottom: 1.25rem; }
+  .specialty-head { font-size: min(var(--step-head), 100cqi / 9); }
+  .specialty-tabs { flex-direction: column; align-items: flex-start; }
+  .specialty-tab { padding-block: 0.08em; }
   .row { grid-template-columns: minmax(0, 1fr); row-gap: 0.25rem; }
   .news-list li { grid-template-columns: auto minmax(0, 1fr); }
   .news-item { grid-column: 1 / -1; }
@@ -278,5 +301,6 @@ p { max-width: 36em; text-wrap: pretty; }
   .slot { width: 2.54em; margin-inline-end: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .site-header, .chip, .button, .policy-item, .dropcap, .to-top { transition: none; }
+  .site-header, .button, .policy-item, .specialty-tab, .specialty-panel, .specialty-mark img, .word-slot > span, .to-top { transition: none !important; }
+  .word-slot > span { animation: none !important; }
 }

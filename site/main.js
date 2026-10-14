@@ -68,34 +68,71 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   Promise.all(frames.map((img) => img.decode().catch(() => {}))).then(() => setInterval(advance, HOLD + FADE));
 })();
 
-// The live thing: choose the specialty shown in "専門性 × インフルエンス".
+// The live thing: choose the specialty in "専門性 × インフルエンス". The blank in its sentence then takes one
+// example after another, so the reader sees the examples as examples, not as the whole range.
 (() => {
-  const picker = document.querySelector('[data-picker]');
-  if (!picker) return;
-  const chips = [...picker.querySelectorAll('[data-who]')];
-  const who = document.querySelector('[data-who-text]');
-  const example = document.querySelector('[data-example-text]');
-  const photo = document.querySelector('[data-dropcap]');
-  picker.hidden = false;
-  const choose = (chip) => {
-    chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-    who.textContent = chip.dataset.who;
-    // The example text lives once, in the no-script list; copying its nodes keeps its <wbr> line-break hints.
-    const source = document.getElementById(chip.dataset.exampleId);
-    example.replaceChildren(...[...source.childNodes].map((node) => node.cloneNode(true)));
-    const swap = () => {
-      photo.src = chip.dataset.src;
-      photo.alt = chip.dataset.alt;
-      photo.width = Number(chip.dataset.w);
-      photo.height = Number(chip.dataset.h);
-      photo.style.objectPosition = chip.dataset.pos || '';
-      photo.classList.remove('is-swapping');
-    };
-    if (reduceMotion) { swap(); return; }
-    photo.classList.add('is-swapping');
-    setTimeout(swap, 260);
+  const head = document.querySelector('[data-picker]');
+  if (!head) return;
+  const section = head.closest('section');
+  const tabs = [...head.querySelectorAll('[aria-controls]')];
+  const panels = tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
+  const marks = tabs.map((tab) => section.querySelector(`[data-for="${tab.getAttribute('aria-controls')}"]`));
+  const live = section.querySelector('[data-specialty-live]');
+  head.hidden = false;
+
+  const HOLD = 2400; // ms each example stays in the blank
+  const MOVE = 450; // ms; matches the .word-slot animations in styles.css
+  let current = Math.max(0, panels.findIndex((panel) => panel.classList.contains('is-on')));
+  let inView = !('IntersectionObserver' in window);
+  let paused = false;
+  let timer = null;
+
+  // What a screen reader hears for a panel: its text without the moving blank (the hidden list stands in for it).
+  const spoken = (panel) => {
+    const copy = panel.cloneNode(true);
+    copy.querySelectorAll('[aria-hidden="true"]').forEach((el) => el.remove());
+    return copy.textContent.replace(/\s+/g, ' ').trim();
   };
-  chips.forEach((chip) => chip.addEventListener('click', () => choose(chip)));
+  const resetWords = (panel) => panel.querySelectorAll('.word-slot > span').forEach((word, i) => {
+    word.classList.remove('is-leaving');
+    word.classList.toggle('is-on', i === 0);
+  });
+  const step = () => {
+    if (document.hidden || !inView || paused) return;
+    const words = [...panels[current].querySelectorAll('.word-slot > span')];
+    if (words.length < 2) return;
+    const at = Math.max(0, words.findIndex((word) => word.classList.contains('is-on')));
+    const leaving = words[at];
+    leaving.classList.replace('is-on', 'is-leaving');
+    words[(at + 1) % words.length].classList.add('is-on');
+    setTimeout(() => leaving.classList.remove('is-leaving'), MOVE + 50);
+  };
+  const restart = () => {
+    clearInterval(timer);
+    if (!reduceMotion) timer = setInterval(step, HOLD);
+  };
+  const show = (index) => {
+    if (index === current) return;
+    const previous = current;
+    current = index;
+    tabs.forEach((tab, i) => tab.setAttribute('aria-pressed', String(i === index)));
+    resetWords(panels[index]);
+    panels.forEach((panel, i) => panel.classList.toggle('is-on', i === index));
+    marks[previous].classList.replace('is-on', 'is-leaving');
+    marks[index].classList.remove('is-leaving');
+    marks[index].classList.add('is-on');
+    setTimeout(() => marks[previous].classList.remove('is-leaving'), 450);
+    live.textContent = spoken(panels[index]);
+    restart();
+  };
+
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+  // The blank holds still while the pointer rests on the sentence, and only moves while the section is on screen.
+  const sentence = section.querySelector('.specialty-panels');
+  sentence.addEventListener('pointerenter', () => { paused = true; });
+  sentence.addEventListener('pointerleave', () => { paused = false; });
+  if (!inView) new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; }, { threshold: 0.3 }).observe(section);
+  restart();
 })();
 
 // The policy sentence: one commitment at a time is set in the full ink.
