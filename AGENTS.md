@@ -23,7 +23,8 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 | `.taste-skill/direction.json` | taste-skill の方向性シート。検査のスクリーンショット（`.taste-skill/inspect*/`）は git に含めない |
 | `docs/content-plan.md` | サイトに載せる内容の検討資料（他社サイトの調査と、載せる内容の案） |
 | `docs/design-direction.md` | デザインの検討資料（先行事例、方向性、アイデア、検査の結果） |
-| `site/` | サイトの試作。`index.html`、`company.html`、`ad-policy.html` と共通の `styles.css`、`main.js` |
+| `docs/todo.md` | 公開までの Todo（残っている作業と、仮に入れた内容の一覧）。作業を終えたら `[x]` にし、新しく見つけた作業はここに足す |
+| `site/` | サイトの試作。`index.html`、`company.html`、`ad-policy.html`、`privacy.html` と共通の `styles.css`、`main.js` |
 | `site/assets/` | 写真と出典（`credits.json`）。追加は `assets.mjs --get <ref> --to site/assets` で行い、ページにクレジットを載せる |
 
 ## 常に守るルール
@@ -61,6 +62,8 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 ### 日本語の文章は yomiyasu
 
 ファイルに残す日本語の文章（サイトの本文、README、手順書など）は、書き終えたあとに `yomiyasu` スキルで推敲します。何を伝えるかは taste-skill の手順で決め、言い回しを yomiyasu で整えます。推敲では意味、条件、数値を変えず、元の文章にない情報を足しません。チャットの返答には使いません。
+
+ただし、プライバシーポリシー（`site/privacy.html`）の本文は、ユーザーの指定により yomiyasu で推敲せず、ほかの会社のプライバシーポリシーと同じ法令文書の定型（「当社」「以下「〜」といいます。」など）で書きます。文節の境目に `<wbr>` を入れる扱いは、ほかのページと同じです。
 
 ## その他のスキル
 

@@ -220,7 +220,6 @@ html:not(.js) .word-slot > span:not(:first-child) { visibility: hidden; }
 }
 .footer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem 2rem; padding-right: calc(3rem + var(--gutter)); font-size: var(--step-small); line-height: 1.7; }
 .footer-meta nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-.footer-meta .pending { color: var(--field-1-muted); }
 .credits summary { cursor: pointer; }
 .credits p { max-width: 60em; margin-top: 0.75rem; font-size: var(--step-body); color: var(--field-1-muted); }
 
@@ -237,7 +236,11 @@ html:not(.js) .word-slot > span:not(:first-child) { visibility: hidden; }
 .page-lead { margin-top: 2rem; }
 .page-body { margin-top: clamp(3rem, 6vw, 5rem); display: grid; gap: 2.5rem; max-width: 46rem; margin-left: 35%; }
 .page-body h2 { font-size: var(--step-lead); line-height: 1.5; font-weight: 500; }
-.page-body h2 + p { margin-top: 0.75rem; }
+.page-body section > * + * { margin-top: 0.75rem; }
+/* Numbered clauses as in Japanese legal documents: (1) (2) (3), with the text hanging clear of the number. */
+@counter-style paren-decimal { system: extends decimal; prefix: "("; suffix: ") "; }
+.page-body ol { max-width: 36em; padding-left: 2.75em; list-style: paren-decimal; }
+.page-body li + li { margin-top: 0.4em; }
 .facts { width: 100%; border-collapse: collapse; }
 .facts th, .facts td { padding: 0 0 1.4rem; text-align: left; vertical-align: top; font-weight: 400; }
 .facts th { width: 9em; padding-right: 1.5rem; color: var(--muted); }
