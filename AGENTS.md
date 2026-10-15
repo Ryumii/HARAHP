@@ -5,9 +5,9 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 ## 現状と前提
 
 - ドメイン advocates.jp は取得済みです（DNS はお名前.com で管理）。サイトは GitHub Pages で公開します。main ブランチの `site/` が変わると、`.github/workflows/pages.yml` が GitHub Actions で公開し直します。Pages の設定には独自ドメイン advocates.jp を登録してあり、DNS の設定は `docs/todo.md` に残っている作業です。
-- 試作は `site/` にあり、HTML、CSS、JavaScript だけで作っています（ビルドと依存なし）。本番の技術スタックは、お問い合わせフォームの仕組みを決めるときに見直します。
+- 試作は `site/` にあり、HTML、CSS、JavaScript だけで作っています（ビルドと依存なし）。公開先が静的な GitHub Pages で、お問い合わせもメールで受け付けるため、この構成のまま公開します。
 - デザインの方向性は `docs/design-direction.md` と `.taste-skill/direction.json`（taste-skill の方向性シート。`node .agents/skills/design-taste-frontend/scripts/draw.mjs --show` で表示）に従います。
-- お問い合わせフォームの送信先は Contact@advocates.jp です。
+- お問い合わせはフォームを置かず、Contact@advocates.jp 宛てのメールで受け付けます。どのページのフッターのリンクも、件名と記入項目のひな形を入れたメールを開きます。
 - GitHub はアカウント Ryumii（miyakeryuta1211@gmail.com）だけを使います。リポジトリは https://github.com/Ryumii/HARAHP （公開）です。このリポジトリの git 設定で、コミットの作成者をこのアドレスに、github.com の認証を gh（Ryumii）に固定しています。ほかのアカウントでコミット、プッシュ、リポジトリの作成をしません。公開リポジトリのため、パスワード、API キー、トークンなどの秘密情報はコミットしません。
 - ユーザー向けの出力（返答、レビュー、レポート）とサイトの本文は日本語で書きます。スキルが英語での出力を指定していても同じです。コード、コマンド、パス、エラーメッセージは原文のまま書きます。
 - 作業環境は Windows と PowerShell です。パスに空白と日本語を含むため、コマンドではパスを引用符で囲みます。
