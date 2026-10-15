@@ -4,11 +4,11 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 
 ## 現状と前提
 
-- ドメイン advocates.jp は取得済みです。公開先は未定です。決まったらこの節に追記します。
-- 試作は `site/` にあり、HTML、CSS、JavaScript だけで作っています（ビルドと依存なし）。本番の技術スタックは、公開先とお問い合わせフォームの仕組みを決めるときに見直します。
+- ドメイン advocates.jp は取得済みです（DNS はお名前.com で管理）。サイトは GitHub Pages で公開します。main ブランチの `site/` が変わると、`.github/workflows/pages.yml` が GitHub Actions で公開し直します。Pages の設定には独自ドメイン advocates.jp を登録してあり、DNS の設定は `docs/todo.md` に残っている作業です。
+- 試作は `site/` にあり、HTML、CSS、JavaScript だけで作っています（ビルドと依存なし）。本番の技術スタックは、お問い合わせフォームの仕組みを決めるときに見直します。
 - デザインの方向性は `docs/design-direction.md` と `.taste-skill/direction.json`（taste-skill の方向性シート。`node .agents/skills/design-taste-frontend/scripts/draw.mjs --show` で表示）に従います。
 - お問い合わせフォームの送信先は Contact@advocates.jp です。
-- GitHub はアカウント Ryumii（miyakeryuta1211@gmail.com）だけを使います。リポジトリは https://github.com/Ryumii/advocates.jp （非公開）です。このリポジトリの git 設定で、コミットの作成者をこのアドレスに、github.com の認証を gh（Ryumii）に固定しています。ほかのアカウントでコミット、プッシュ、リポジトリの作成をしません。
+- GitHub はアカウント Ryumii（miyakeryuta1211@gmail.com）だけを使います。リポジトリは https://github.com/Ryumii/HARAHP （公開）です。このリポジトリの git 設定で、コミットの作成者をこのアドレスに、github.com の認証を gh（Ryumii）に固定しています。ほかのアカウントでコミット、プッシュ、リポジトリの作成をしません。公開リポジトリのため、パスワード、API キー、トークンなどの秘密情報はコミットしません。
 - ユーザー向けの出力（返答、レビュー、レポート）とサイトの本文は日本語で書きます。スキルが英語での出力を指定していても同じです。コード、コマンド、パス、エラーメッセージは原文のまま書きます。
 - 作業環境は Windows と PowerShell です。パスに空白と日本語を含むため、コマンドではパスを引用符で囲みます。
 - フォルダは OneDrive で同期されます。シンボリックリンクは作りません。npm の依存を入れると `node_modules` も同期の対象になるため、最初に入れるときはユーザーに確認します。
@@ -18,6 +18,7 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 | パス | 内容 |
 | --- | --- |
 | `.github/copilot-instructions.md` | Copilot 用の入口。ルールの本体はこのファイル |
+| `.github/workflows/pages.yml` | `site/` を GitHub Pages に公開するワークフロー |
 | `.agents/skills/` | エージェントスキル。`npx skills` で管理し、直接編集しない |
 | `skills-lock.json` | スキルの取得元とハッシュ。復元と更新に使う |
 | `.taste-skill/direction.json` | taste-skill の方向性シート。検査のスクリーンショット（`.taste-skill/inspect*/`）は git に含めない |
