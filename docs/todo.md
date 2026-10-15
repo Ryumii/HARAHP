@@ -10,10 +10,10 @@ advocates.jp を公開するまでに残っている作業の一覧です。終�
 - [ ] プライバシーポリシーの「4. 安全管理措置」にある外的環境の把握（Google Workspace のデータが米国等のサーバーに保存される場合がある、という記載）が正しいか、Google Workspace の契約と規約で確かめる。
 - [x] 開示等の請求の手数料を決める（2026年10月15日）。今は取らないことにし、プライバシーポリシーの「5. 保有個人データの開示等の請求」に書きました。
 - [x] 公開先を決める（2026年10月15日）。GitHub Pages に決め、`site/` を GitHub Actions で公開するワークフロー（`.github/workflows/pages.yml`）を入れました。
-- [ ] advocates.jp の DNS を GitHub Pages に向ける。DNS はお名前.com で管理されています。Pages の設定には advocates.jp が登録済みですが、DNS にレコードがないため、今は https://ryumii.github.io/HARAHP/ も advocates.jp に転送されて表示されません。次のレコードを追加します。メールの MX レコードと TXT レコードはそのまま残します。
-  - A レコード（advocates.jp）: 185.199.108.153、185.199.109.153、185.199.110.153、185.199.111.153
-  - CNAME レコード（www.advocates.jp）: ryumii.github.io
-- [ ] DNS が反映されたら、リポジトリの Settings → Pages で「Enforce HTTPS」をオンにする。GitHub のアカウント設定（Settings → Pages）で advocates.jp を確認済みのドメインにしておくと、ほかのアカウントに使われるのを防げます。
+- [x] advocates.jp の A レコードを GitHub Pages に向ける（2026年10月15日）。お名前.com の DNS に 185.199.108.153、185.199.109.153、185.199.110.153、185.199.111.153 の4件を設定し、https://advocates.jp/ で表示されることを確かめました。メールの MX レコードと TXT レコードはそのまま残っています。
+- [ ] www.advocates.jp の CNAME レコード（値は ryumii.github.io）をお名前.com の DNS に追加する。今は www 付きのアドレスでは表示されません。追加すると、GitHub Pages が www 付きのアクセスを advocates.jp に転送します。
+- [x] リポジトリの Settings → Pages で「Enforce HTTPS」をオンにする（2026年10月15日）。advocates.jp の証明書は発行済みで、http のアクセスは https に転送されます。
+- [ ] GitHub のアカウント設定（Settings → Pages）で advocates.jp を確認済みのドメインにする。GitHub が示す TXT レコードを DNS に追加すると、ほかのアカウントにドメインを使われるのを防げます。
 - [ ] GA4 を導入する場合は、測定 ID を決めて全ページにタグを入れる。プライバシーポリシーには「6. Cookie 及びアクセス解析ツール」を設けてあります。広告向けの機能（Google シグナルなど）を有効にする場合は、その記載を加えます。
 - [x] お問い合わせの受け付け方を決める（2026年10月15日）。フォームは置かず、メールアドレスを押すとメールソフトが開く今の形にしました。どのページのフッターからも、件名と記入項目のひな形を入れたメールが開きます。プライバシーポリシーは今の記載で足ります。
 

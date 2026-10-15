@@ -4,7 +4,7 @@ Advocates（advocates.jp）の公式サイトを作るプロジェクトです�
 
 ## 現状と前提
 
-- ドメイン advocates.jp は取得済みです（DNS はお名前.com で管理）。サイトは GitHub Pages で公開します。main ブランチの `site/` が変わると、`.github/workflows/pages.yml` が GitHub Actions で公開し直します。Pages の設定には独自ドメイン advocates.jp を登録してあり、DNS の設定は `docs/todo.md` に残っている作業です。
+- ドメイン advocates.jp は取得済みです（DNS はお名前.com で管理）。サイトは GitHub Pages で公開し、https://advocates.jp/ で表示されます（HTTPS 必須）。main ブランチの `site/` が変わると、`.github/workflows/pages.yml` が GitHub Actions で公開し直します。www の DNS 設定などの残りの作業は `docs/todo.md` にあります。
 - 試作は `site/` にあり、HTML、CSS、JavaScript だけで作っています（ビルドと依存なし）。公開先が静的な GitHub Pages で、お問い合わせもメールで受け付けるため、この構成のまま公開します。
 - デザインの方向性は `docs/design-direction.md` と `.taste-skill/direction.json`（taste-skill の方向性シート。`node .agents/skills/design-taste-frontend/scripts/draw.mjs --show` で表示）に従います。
 - お問い合わせはフォームを置かず、Contact@advocates.jp 宛てのメールで受け付けます。どのページのフッターのリンクも、件名と記入項目のひな形を入れたメールを開きます。
